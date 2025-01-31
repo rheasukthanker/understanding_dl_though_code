@@ -30,9 +30,9 @@ class MyBatchNorm2d(torch.nn.Module):
         else:
           return (x - sample_mean[None, :, None, None]) / torch.sqrt(sample_var[None, :, None, None] + self.eps)
       else:
-        return self.apply_correction_var(x)
+        return self.forward_test(x)
 
-  def apply_correction_var(self, x):
+  def forward_test(self, x):
 
     if self.affine:
       return ((x - self.running_mean[None, :, None, None]) / torch.sqrt(self.running_var[None, :, None, None] + self.eps)) * self.gamma[None, :, None, None] + self.beta[None, :, None, None]
